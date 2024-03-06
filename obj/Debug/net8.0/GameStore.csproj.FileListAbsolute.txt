@@ -1,0 +1,15 @@
+C:\Users\guigu\Programação\GameStore\bin\Debug\net8.0\GameStore.exe
+C:\Users\guigu\Programação\GameStore\bin\Debug\net8.0\GameStore.deps.json
+C:\Users\guigu\Programação\GameStore\bin\Debug\net8.0\GameStore.runtimeconfig.json
+C:\Users\guigu\Programação\GameStore\bin\Debug\net8.0\GameStore.dll
+C:\Users\guigu\Programação\GameStore\bin\Debug\net8.0\GameStore.pdb
+C:\Users\guigu\Programação\GameStore\obj\Debug\net8.0\GameStore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\guigu\Programação\GameStore\obj\Debug\net8.0\GameStore.AssemblyInfoInputs.cache
+C:\Users\guigu\Programação\GameStore\obj\Debug\net8.0\GameStore.AssemblyInfo.cs
+C:\Users\guigu\Programação\GameStore\obj\Debug\net8.0\GameStore.csproj.CoreCompileInputs.cache
+C:\Users\guigu\Programação\GameStore\obj\Debug\net8.0\GameStore.sourcelink.json
+C:\Users\guigu\Programação\GameStore\obj\Debug\net8.0\GameStore.dll
+C:\Users\guigu\Programação\GameStore\obj\Debug\net8.0\refint\GameStore.dll
+C:\Users\guigu\Programação\GameStore\obj\Debug\net8.0\GameStore.pdb
+C:\Users\guigu\Programação\GameStore\obj\Debug\net8.0\GameStore.genruntimeconfig.cache
+C:\Users\guigu\Programação\GameStore\obj\Debug\net8.0\ref\GameStore.dll
