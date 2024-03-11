@@ -3,7 +3,7 @@
 class Program
 {
     static Estoque tratarEstoque = new Estoque();
-
+    string caminho = "C:\\Usuários\\guigu\\Programação\\GameStore\\DadosSalvos.txt";
 
     public static void Main(string[] args)
     {

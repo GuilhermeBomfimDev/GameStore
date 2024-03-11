@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\guigu\\Programação\\GameStore\\Main\\Program.cs.csproj",
-      "projectName": "Program.cs",
-      "projectPath": "C:\\Users\\guigu\\Programação\\GameStore\\Main\\Program.cs.csproj",
+      "projectUniqueName": "C:\\Users\\guigu\\Programação\\GameStore\\GameStore.csproj",
+      "projectName": "GameStore",
+      "projectPath": "C:\\Users\\guigu\\Programação\\GameStore\\GameStore.csproj",
       "packagesPath": "C:\\Users\\guigu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\guigu\\Programação\\GameStore\\Main\\obj\\",
+      "outputPath": "C:\\Users\\guigu\\Programação\\GameStore\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\guigu\\AppData\\Roaming\\NuGet\\NuGet.Config",
