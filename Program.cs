@@ -3,7 +3,7 @@
 class Program
 {
     static Estoque tratarEstoque = new Estoque();
-    string caminho = "C:\\Usuários\\guigu\\Programação\\GameStore\\DadosSalvos.txt";
+    static BancoDeDados bancoDados = new BancoDeDados();
 
     public static void Main(string[] args)
     {
@@ -14,6 +14,10 @@ class Program
     \    \_\  \ / __ \_|  Y Y  \\  ___/   /        \ |  |  (  <_> ) |  | \/\  ___/ 
      \______  /(____  /|__|_|  / \___  > /_______  / |__|   \____/  |__|    \___  >
             \/      \/       \/      \/          \/                             \/ ");
+
+        //Verificar lista se está preenchida ou vazia
+        BancoDeDados.VerificarBanco();
+
         Console.WriteLine("\nBem vindo a Game Store!\n");
         Console.WriteLine("Escolha uma opção do menu:");
         ExibirMenu();

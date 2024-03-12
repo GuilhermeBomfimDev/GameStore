@@ -1,7 +1,7 @@
-Itens registrados:
+Itens registrados: 0
 
-Nome: 
+Nome:
 Quant:
-Tipo:  
+Tipo:
 Valor:
 Modelo:

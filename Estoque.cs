@@ -2,24 +2,23 @@ using Game_Store;
 
 class Estoque{
     // Inicializar variáveis
-    static int indiceNovoProduto = 0;
-    static int tamanhoArray = 5;
     static bool listaCheia = false;
     static bool itemExcluido = false;
+    static BancoDeDados bancoDados = new BancoDeDados();
 
     // Inicializar vetores
-    static string[] nomeProdutos = new string[tamanhoArray];
-    static double[] listaValores = new double[tamanhoArray];
-    static int[] listaQtProdutos = new int[tamanhoArray];
-    static string[] listaTipoProdutos = new string[tamanhoArray];
-    static string[] corProdutos = new string[tamanhoArray];
-    static string[] modeloProdutos = new string[tamanhoArray];
+    static string[] nomeProdutos = new string[BancoDeDados.tamanhoArray];
+    static double[] listaValores = new double[BancoDeDados.tamanhoArray];
+    static int[] listaQtProdutos = new int[BancoDeDados.tamanhoArray];
+    static string[] listaTipoProdutos = new string[BancoDeDados.tamanhoArray];
+    static string[] corProdutos = new string[BancoDeDados.tamanhoArray];
+    static string[] modeloProdutos = new string[BancoDeDados.tamanhoArray];
 
     public static void NovoProduto()
     {
         Console.WriteLine("\n________ Adicionar Produto ________\n");
 
-        if(indiceNovoProduto >= nomeProdutos.Length){
+        if(BancoDeDados.indiceNovoProduto >= nomeProdutos.Length){
             listaCheia = true;
             Console.WriteLine("A lista de produtos está cheia. Deseja excluir um item?");
             Console.WriteLine("\n[1] Excluir produto");
@@ -45,33 +44,33 @@ class Estoque{
         } else {
             //Diminuir o índice caso algum item tenha sido excluído
             if(itemExcluido == true){
-                indiceNovoProduto--;
+                BancoDeDados.indiceNovoProduto--;
                 itemExcluido = false;
             }
 
             //Capturar produto
             Console.Write("Informe o nome do produto: ");
             string nomeProduto = Console.ReadLine()!;
-            nomeProdutos[indiceNovoProduto] = nomeProduto;
+            nomeProdutos[BancoDeDados.indiceNovoProduto] = nomeProduto;
 
             Console.Write("Informe o valor do produto: ");
             double valorProduto = double.Parse(Console.ReadLine()!);
-            listaValores[indiceNovoProduto] = valorProduto;
+            listaValores[BancoDeDados.indiceNovoProduto] = valorProduto;
 
             Console.Write("Informe o tipo do produto: ");
             string tipoProduto = Console.ReadLine()!;
-            listaTipoProdutos[indiceNovoProduto] = tipoProduto;
+            listaTipoProdutos[BancoDeDados.indiceNovoProduto] = tipoProduto;
 
             Console.Write("Informe a cor do produto: ");
             string cor = Console.ReadLine()!;
-            corProdutos[indiceNovoProduto] = cor;
+            corProdutos[BancoDeDados.indiceNovoProduto] = cor;
 
             Console.Write("Informe o modelo do produto: ");
             string modelo = Console.ReadLine()!;
-            modeloProdutos[indiceNovoProduto] = modelo;
+            modeloProdutos[BancoDeDados.indiceNovoProduto] = modelo;
 
             Console.WriteLine("\nProduto adicionado com sucesso!");
-            indiceNovoProduto++;
+            BancoDeDados.indiceNovoProduto++;
 
             Thread.Sleep(2000);
             Console.WriteLine("\n----------------------------------------------------\n");
@@ -82,7 +81,8 @@ class Estoque{
 
     public static void ListarProdutos()
         {
-            if (nomeProdutos[0] == null)
+
+            if (BancoDeDados.listaVazia == true)
             {
                 Console.WriteLine("\nNão há produto registrado. Deseja adicionar um item?");
                 PerguntaAddProduto();
@@ -90,7 +90,8 @@ class Estoque{
             else
             {
                 Console.WriteLine("\n________ Lista de Produtos ________\n");
-                FalarLista();
+                BancoDeDados.LerBanco();
+                //FalarLista();
 
                 Thread.Sleep(2000);
                 Console.WriteLine("\n----------------------------------------------------\n");
