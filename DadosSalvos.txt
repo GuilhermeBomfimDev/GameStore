@@ -1,7 +1,3 @@
 Itens registrados: 0
 
-Nome:
-Quant:
-Tipo:
-Valor:
-Modelo:
+1 - 

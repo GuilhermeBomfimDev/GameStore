@@ -7,12 +7,12 @@ class Estoque{
     static BancoDeDados bancoDados = new BancoDeDados();
 
     // Inicializar vetores
-    static string[] nomeProdutos = new string[BancoDeDados.tamanhoArray];
-    static double[] listaValores = new double[BancoDeDados.tamanhoArray];
-    static int[] listaQtProdutos = new int[BancoDeDados.tamanhoArray];
-    static string[] listaTipoProdutos = new string[BancoDeDados.tamanhoArray];
-    static string[] corProdutos = new string[BancoDeDados.tamanhoArray];
-    static string[] modeloProdutos = new string[BancoDeDados.tamanhoArray];
+    public static string[] nomeProdutos = new string[BancoDeDados.tamanhoArray];
+    public static double[] listaValores = new double[BancoDeDados.tamanhoArray];
+    public static int[] listaQtProdutos = new int[BancoDeDados.tamanhoArray];
+    public static string[] listaTipoProdutos = new string[BancoDeDados.tamanhoArray];
+    public static string[] corProdutos = new string[BancoDeDados.tamanhoArray];
+    public static string[] modeloProdutos = new string[BancoDeDados.tamanhoArray];
 
     public static void NovoProduto()
     {
@@ -68,6 +68,8 @@ class Estoque{
             Console.Write("Informe o modelo do produto: ");
             string modelo = Console.ReadLine()!;
             modeloProdutos[BancoDeDados.indiceNovoProduto] = modelo;
+
+            BancoDeDados.escreverBanco();
 
             Console.WriteLine("\nProduto adicionado com sucesso!");
             BancoDeDados.indiceNovoProduto++;

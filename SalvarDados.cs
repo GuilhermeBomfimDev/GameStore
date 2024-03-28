@@ -1,6 +1,8 @@
 class BancoDeDados {
 
     //Inicializar variáveis
+    public static string itemSalvar;
+    public static int linhaSobrescrever;
     public static int indiceNovoProduto;
     public static int tamanhoArray = 5;
     static bool problemaArquivo = false;
@@ -10,7 +12,6 @@ class BancoDeDados {
     public static int qtItensListados;
     static StreamReader sr = new StreamReader(caminhoDoc);
     static StreamWriter sw = new StreamWriter(caminhoDoc);
-
 
     public static void VerificarBanco(){
         StreamReader sr = new StreamReader(caminhoDoc);
@@ -25,10 +26,6 @@ class BancoDeDados {
                 }
             }
         }
-        
-        Console.WriteLine(qtItensListados);
-        Console.WriteLine(listaVazia);
-        Console.ReadLine();
     }
 
     public static void LerBanco(){
@@ -47,14 +44,23 @@ class BancoDeDados {
     }
 
     public static void escreverBanco(){
-        string line = sr.ReadLine()!;
-
-        foreach(var num in line.Split(':')){
-            if(int.TryParse(num, out qtItensListados)){
-                
+        string[] arquivo = File.ReadAllLines(caminhoDoc);
+        string indiceItem = arquivo[arquivo.Length - 1];
+        string texto = indiceItem + "-";
+        
+        try{
+            for (int i = 0; i < Estoque.nomeProdutos.Length; i++)
+            {
+                if (Estoque.nomeProdutos[i] != null)
+                {
+                    itemSalvar = $" {Estoque.listaTipoProdutos[i]} | {Estoque.nomeProdutos[i]} | {Estoque.corProdutos[i]} | {Estoque.modeloProdutos[i]} | R${Estoque.listaValores[i]} | {Estoque.listaQtProdutos[i]} Unidades no estoque\n";
+                }
             }
-        }
+            
+            sw.WriteLine(texto + itemSalvar);
 
-        sw.WriteLine();
+        }catch(Exception e){
+            Console.WriteLine("Exception: " + e.Message);
+        }
     }
-}
+}    
