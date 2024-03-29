@@ -1,12 +1,12 @@
 using Game_Store;
 
-class Estoque{
+public class Estoque{
     // Inicializar variáveis
     static bool listaCheia = false;
     static bool itemExcluido = false;
     static BancoDeDados bancoDados = new BancoDeDados();
 
-    // Inicializar vetores
+    // Inicializar Listas
     public static string[] nomeProdutos = new string[BancoDeDados.tamanhoArray];
     public static double[] listaValores = new double[BancoDeDados.tamanhoArray];
     public static int[] listaQtProdutos = new int[BancoDeDados.tamanhoArray];
@@ -82,31 +82,32 @@ class Estoque{
     }
 
     public static void ListarProdutos()
+    {
+        BancoDeDados.VerificarBanco();
+        
+        if (BancoDeDados.listaVazia == true)
         {
+            Console.WriteLine("\nNão há produto registrado. Deseja adicionar um item?");
+            PerguntaAddProduto();
+        }
+        else
+        {
+            Console.WriteLine("\n________ Lista de Produtos ________\n");
+            BancoDeDados.LerBanco();
+            //FalarLista();
 
-            if (BancoDeDados.listaVazia == true)
-            {
-                Console.WriteLine("\nNão há produto registrado. Deseja adicionar um item?");
-                PerguntaAddProduto();
+            Thread.Sleep(2000);
+            Console.WriteLine("\n----------------------------------------------------\n");
+            
+            if(listaCheia == true){
+                Console.WriteLine("Deseja excluir um item?");
+                Program.ExibirMenu();
+            } else{
+                Console.WriteLine("Ajudo em algo mais?\n");
+                Program.ExibirMenu();
             }
-            else
-            {
-                Console.WriteLine("\n________ Lista de Produtos ________\n");
-                BancoDeDados.LerBanco();
-                //FalarLista();
-
-                Thread.Sleep(2000);
-                Console.WriteLine("\n----------------------------------------------------\n");
-                
-                if(listaCheia == true){
-                    Console.WriteLine("Deseja excluir um item?");
-                    Program.ExibirMenu();
-                } else{
-                    Console.WriteLine("Ajudo em algo mais?\n");
-                    Program.ExibirMenu();
-                }
-            }
-        }    
+        }
+    }
 
     public static void RemoverProdutos()
     {

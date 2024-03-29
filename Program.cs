@@ -2,10 +2,10 @@
 
 class Program
 {
-    static Estoque tratarEstoque = new Estoque();
-    static BancoDeDados bancoDados = new BancoDeDados();
+    public static Estoque tratarEstoque = new Estoque();
+    public static BancoDeDados bancoDados = new BancoDeDados();
 
-    public static void Main(string[] args)
+    static void Main(string[] args)
     {
         Console.WriteLine(@"
       ________                             _________  __                           
