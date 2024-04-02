@@ -4,15 +4,11 @@ using Game_Store;
 class BancoDeDados {
 
     //Inicializar variáveis
-    public static string? itemSalvar;
-    //public static int linhaSobrescrever;
+    static int indice = 0;
     public static int indiceNovoProduto;
     public static int tamanhoArray = 5;
-    //static bool problemaArquivo = false;
     static string caminhoDoc = "C:\\Users\\guigu\\Programação\\GameStore\\DadosSalvos.txt";
     public static bool listaVazia = false;
-    //static Estoque tratarEstoque = new Estoque();
-    public static int qtItens;
 
     public static void VerificarBanco()
     {
@@ -24,6 +20,7 @@ class BancoDeDados {
                 listaVazia = true;
             } else {
                 listaVazia = false;
+                MontarListas();
             }
             sr.Close();
         }
@@ -56,45 +53,109 @@ class BancoDeDados {
         }
     }
 
-    public static void escreverBanco(){
+    public static void EscreverBanco()
+    {
         try
         {
-            string indiceItem;
+            VerificarBanco();
             string[] arquivo = File.ReadAllLines(caminhoDoc);
-            if(listaVazia == false){
-                indiceItem = arquivo[arquivo.Length - 1];
-                Console.WriteLine("Arquivo maior que 0");
-
+            if(listaVazia == true){
+                indice = 1;
             } else{
-                indiceItem = "1";
-                Console.WriteLine("Arquivo vazio");
+                indice += 1;
             }
             
-            int indice = int.Parse(indiceItem);
-            string texto = (indice) + " - ";
-            
-            StringBuilder produtosBuilder = new StringBuilder(); // Usando StringBuilder para uma concatenação eficiente
+            string texto = indice + " - ";
 
-            for (int i = 0; i < Estoque.nomeProdutos.Length; i++)
+            for (int i = 0; i < Estoque.nomeProdutos.Length - 1; i++)
             {
-                if (Estoque.nomeProdutos[i] != null)
+                if (i == indice - 1)
                 {
-                    string itemSalvar = $" {Estoque.listaTipoProdutos[i]} | {Estoque.nomeProdutos[i]} | {Estoque.corProdutos[i]} | {Estoque.modeloProdutos[i]} | R${Estoque.listaValores[i]} | {Estoque.listaQtProdutos[i]} Unidades no estoque\n";
+                    string itemSalvar = $" {Estoque.listaTipoProdutos[i]} | {Estoque.nomeProdutos[i]} | {Estoque.corProdutos[i]} | {Estoque.modeloProdutos[i]} | R${Estoque.listaValores[i]} | {Estoque.listaQtProdutos[i]} Unidades no estoque";
 
-                    produtosBuilder.Append(itemSalvar); // Acumulando as informações dos produtos
+                    using (StreamWriter sw = new StreamWriter(caminhoDoc, true)) // Abrindo o arquivo no modo de adição (append)
+                    {
+                    sw.Write(texto + itemSalvar + "\n");
+                    }
+
+                    itemSalvar = "";
                 }
             }
-
-            using (StreamWriter sw = new StreamWriter(caminhoDoc, true)) // Abrindo o arquivo no modo de adição (append)
-            {
-                sw.WriteLine(texto + produtosBuilder.ToString());
-            }
-
-            indiceItem += 1;
         }
         catch (Exception e)
         {
             Console.WriteLine("Exception: " + e.Message);
         }
     }
-}    
+
+    public static void AlterarDadosBanco()
+    {
+        try
+        {
+            VerificarBanco(); // Verificar se o banco de dados está vazio
+            if (listaVazia)
+            {
+                Console.WriteLine("O seu estoque está vazio\n");
+                Estoque.PerguntaAddProduto();
+                return; // Saia do método se o estoque estiver vazio
+            }
+
+            indice = 1;
+            string texto = indice + " - ";
+            string itemSalvar = "";
+
+            using (StreamWriter sw = new StreamWriter(caminhoDoc, false)) // Abrindo o arquivo no modo de adição (append)
+            {
+                for (int i = 0; i < Estoque.nomeProdutos.Length - 1; i++)
+                {
+                    if (Estoque.nomeProdutos[i] != null)
+                    {
+                        if(i == Estoque.itemEscolhido && Estoque.inValorAlterado == true){
+                            itemSalvar = $"{Estoque.listaTipoProdutos[i]} | {Estoque.nomeProdutos[i]} | {Estoque.corProdutos[i]} | {Estoque.modeloProdutos[i]} | R${Estoque.listaValores[i]} | {Estoque.listaQtProdutos[i]} Unidades no estoque";
+
+                            Estoque.inValorAlterado = false;
+                        } else{
+                            itemSalvar = $"{Estoque.listaTipoProdutos[i]} | {Estoque.nomeProdutos[i]} | {Estoque.corProdutos[i]} | {Estoque.modeloProdutos[i]} | R${Estoque.listaValores[i]} | {Estoque.listaQtProdutos[i]} Unidades no estoque";
+                        }
+
+                        sw.Write(texto + itemSalvar + "\n");
+                        itemSalvar = "";
+                        texto = indice + 1 + " - ";
+                    }
+                }    
+            }
+        }    
+        catch(Exception e){
+            Console.WriteLine("Exception: " + e.Message);
+        }
+    }
+
+    public static void MontarListas()
+    {
+        StreamReader sr = new StreamReader(caminhoDoc);
+        string[] listaEstoque = new string[tamanhoArray];
+
+        for (int i = 0; i < listaEstoque.Length; i++)
+        {
+            string line = sr.ReadLine();
+            string[] partes = line.Split(" | ");
+
+            // Verifique se há partes suficientes após a divisão
+            if (partes.Length >= 5)
+            {
+                Estoque.listaTipoProdutos[i] = partes[0];
+                Estoque.nomeProdutos[i] = partes[1];
+                Estoque.corProdutos[i] = partes[2];
+                Estoque.modeloProdutos[i] = partes[3];
+                Estoque.listaValores[i] = partes[4];
+                Estoque.listaQtProdutos[i] = partes[5];
+            }
+            else
+            {
+                Console.WriteLine("Erro: A linha não contém dados suficientes.");
+            }
+        }
+
+        sr.Close(); // Não se esqueça de fechar o StreamReader após usá-lo
+    }
+}

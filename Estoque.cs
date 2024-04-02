@@ -2,9 +2,13 @@ using Game_Store;
 
 public class Estoque{
     // Inicializar variáveis
+    public static int itemEscolhido;
     static bool listaCheia = false;
     static bool itemExcluido = false;
     static BancoDeDados bancoDados = new BancoDeDados();
+    public static double novoValor;
+    public static bool inValorAlterado = false;
+    public static bool inEstoqueAlterado = false;
 
     // Inicializar Listas
     public static string[] nomeProdutos = new string[BancoDeDados.tamanhoArray];
@@ -69,7 +73,7 @@ public class Estoque{
             string modelo = Console.ReadLine()!;
             modeloProdutos[BancoDeDados.indiceNovoProduto] = modelo;
 
-            BancoDeDados.escreverBanco();
+            BancoDeDados.EscreverBanco();
 
             Console.WriteLine("\nProduto adicionado com sucesso!");
             BancoDeDados.indiceNovoProduto++;
@@ -94,7 +98,6 @@ public class Estoque{
         {
             Console.WriteLine("\n________ Lista de Produtos ________\n");
             BancoDeDados.LerBanco();
-            //FalarLista();
 
             Thread.Sleep(2000);
             Console.WriteLine("\n----------------------------------------------------\n");
@@ -119,7 +122,7 @@ public class Estoque{
         } 
         else{
             Console.WriteLine("Qual produto deseja remover?\n");
-            FalarLista();
+            BancoDeDados.LerBanco();
         }
 
         Console.Write("\nDigite um número para escolher: ");
@@ -161,7 +164,7 @@ public class Estoque{
 
             // Exibir a lista atualizada
             Console.WriteLine("\nLista Atualizada:");
-            FalarLista();
+            BancoDeDados.LerBanco();
 
         Console.WriteLine("\nItem excluído com sucesso!");
         itemExcluido = true;
@@ -178,7 +181,8 @@ public class Estoque{
 
     public static void AlterarValor()
     {
-        if (nomeProdutos[0] == null){
+        BancoDeDados.VerificarBanco();
+        if (BancoDeDados.listaVazia == true){
             Console.WriteLine("\nNão há produto registrado. Deseja adicionar um item?");
             PerguntaAddProduto();
         } 
@@ -186,16 +190,20 @@ public class Estoque{
             Console.WriteLine("\n________ Alterar valor ________\n");
 
             Console.WriteLine("Qual produto deseja alterar o valor?\n");
-            FalarLista();
+            BancoDeDados.LerBanco();
         }
 
         Console.Write("\nDigite um número para escolher: ");
-        int itemEscolhido = int.Parse(Console.ReadLine()!) - 1;
+        itemEscolhido = int.Parse(Console.ReadLine()!) - 1;
 
         Console.Write("\nDigite o novo valor: ");
-        double novoValor = double.Parse(Console.ReadLine()!);
+        novoValor = double.Parse(Console.ReadLine()!);
 
         listaValores[itemEscolhido] = novoValor;
+
+        inValorAlterado = true;
+
+        BancoDeDados.AlterarDadosBanco();
 
         Console.WriteLine("\nValor do item: " + nomeProdutos[itemEscolhido] + " - Atualizado com sucesso!");
 
@@ -248,7 +256,7 @@ public class Estoque{
     public static void AdicionarEstoque()
     {
         Console.WriteLine("\nQual produto deseja adicionar ao estoque?\n");
-        FalarLista();
+        BancoDeDados.LerBanco();
 
         Console.Write("\nDigite um número para escolher: ");
         int itemEscolhidoAdd = int.Parse(Console.ReadLine()!) - 1;
@@ -262,7 +270,7 @@ public class Estoque{
     public static void RetirarEstoque()
     {
         Console.WriteLine("Qual produto deseja reduzir o estoque?\n");
-        FalarLista();
+        BancoDeDados.LerBanco();
 
         Console.Write("\nDigite um número para escolher: ");
         int itemEscolhidoAdd = int.Parse(Console.ReadLine()!) - 1;
@@ -295,21 +303,5 @@ public class Estoque{
                 Program.ExibirMenu();
                 break;
         }
-    }
-
-    public static void FalarLista()
-    {
-        for (int i = 0; i < nomeProdutos.Length; i++)
-            {
-                if (nomeProdutos[i] != null)
-                {
-                    Console.Write((i + 1) + ") " + listaTipoProdutos[i]);
-                    Console.Write(" - " + nomeProdutos[i]);
-                    Console.Write(" - " + corProdutos[i]);
-                    Console.Write(" - " + modeloProdutos[i]);
-                    Console.Write(" - R$" + listaValores[i]);
-                    Console.Write(" - " + listaQtProdutos[i] + " Unidades no estoque\n");
-                }
-            }
     }
 }
